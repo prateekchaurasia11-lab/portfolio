@@ -49,4 +49,4 @@ The contact page submits messages through FormSubmit to Prateek's inbox.
 
 ## Other Projects
 
-This repository also includes the existing [Gradient Generator](./Gradient%20generator) and [Weather Application](./wether%20application) projects.
+The [Gradient Generator](https://github.com/prateekchaurasia11-lab/gradient-generator) is maintained in its own repository. This repository also includes the existing [Weather Application](./wether%20application) project.
