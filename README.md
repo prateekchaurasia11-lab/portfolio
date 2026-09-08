@@ -26,3 +26,7 @@ The default Vite development URL is `http://localhost:3000`.
 Portfolio projects live in `content/projects`, leadership entries in `content/jobs`, and education in `content/education`.
 
 The React contact form sends messages through FormSubmit.
+
+## Other Projects
+
+This repository also preserves the existing [Gradient Generator](./Gradient%20generator) and [Weather Application](./wether%20application) projects.
