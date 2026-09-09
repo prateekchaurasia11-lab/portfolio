@@ -4,36 +4,45 @@ import { ArrowUpRight, Linkedin, Phone } from 'lucide-react'
 
 export const Route = createFileRoute('/contact')({ component: Contact })
 
-type FormState = 'idle' | 'success'
+type FormState = 'idle' | 'submitting' | 'success' | 'error'
 
 function Contact() {
   const [status, setStatus] = useState<FormState>('idle')
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    const formData = new FormData(event.currentTarget)
+    const form = event.currentTarget
+    const formData = new FormData(form)
     const name = String(formData.get('name') || '')
     const email = String(formData.get('email') || '')
     const message = String(formData.get('message') || '')
 
-    void fetch('https://formsubmit.co/ajax/prateekchaurasia11@gmail.com', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({
-        name,
-        email,
-        message,
-        _subject: `Portfolio inquiry from ${name}`,
-        _replyto: email,
-        _template: 'table',
-      }),
-    }).catch(() => undefined)
+    setStatus('submitting')
 
-    event.currentTarget.reset()
-    setStatus('success')
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/prateekchaurasia11@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+          _subject: `Portfolio inquiry from ${name}`,
+          _replyto: email,
+          _template: 'table',
+        }),
+      })
+
+      if (!response.ok) throw new Error('FormSubmit request failed')
+
+      form.reset()
+      setStatus('success')
+    } catch {
+      setStatus('error')
+    }
   }
 
   return (
@@ -82,6 +91,12 @@ function Contact() {
               onSubmit={handleSubmit}
               className="contact-form"
             >
+              {status === 'error' ? (
+                <p className="form-error" role="alert">
+                  Something went wrong sending your message. Please try again, or email me directly at{' '}
+                  <a href="mailto:prateekchaurasia11@gmail.com">prateekchaurasia11@gmail.com</a>.
+                </p>
+              ) : null}
               <div className="field">
                 <label htmlFor="name">Your name</label>
                 <input id="name" name="name" type="text" placeholder="Your name" required />
@@ -94,8 +109,8 @@ function Contact() {
                 <label htmlFor="message">What are you working on?</label>
                 <textarea id="message" name="message" placeholder="A few details about your project, timeline, and where you need help." required />
               </div>
-              <button className="button button-primary" type="submit">
-                Send project details <ArrowUpRight size={18} />
+              <button className="button button-primary" type="submit" disabled={status === 'submitting'}>
+                {status === 'submitting' ? 'Sending…' : 'Send project details'} <ArrowUpRight size={18} />
               </button>
             </form>
           )}
