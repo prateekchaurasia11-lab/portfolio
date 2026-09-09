@@ -9,6 +9,7 @@
   --blue-dark: #2545ad;
   --line: rgba(32, 32, 30, 0.18);
   --muted: #67665f;
+  --error: #b3261e;
   --radius: 1.5rem;
 }
 
@@ -156,6 +157,10 @@ em { font-family: 'Newsreader', serif; font-weight: 500; }
 .form-status { padding: 14px 16px; border: 1px solid #b05c4d; color: #873e32; font-size: .82rem; }
 .success-panel { padding: 50px; background: var(--paper-deep); border-radius: var(--radius); }
 .success-panel h2 { font-size: 2.5rem; letter-spacing: -.04em; }
+
+.form-error { margin-bottom: 24px; padding: 16px 20px; border-radius: var(--radius); background: rgba(179, 38, 30, 0.08); color: var(--error); font-size: .9rem; }
+
+.button:disabled { opacity: .6; cursor: not-allowed; }
 
 .reveal { animation: reveal .8s cubic-bezier(.2,.7,.2,1) both; }
 .reveal-delay { animation-delay: .16s; }
