@@ -7,7 +7,6 @@ tags:
   - AWS EC2
   - DNS Management
   - SSL
-liveUrl: "https://vigilronix.com/"
 ---
 
 ### The challenge
